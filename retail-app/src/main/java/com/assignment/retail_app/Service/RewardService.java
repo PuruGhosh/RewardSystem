@@ -8,15 +8,14 @@ import com.assignment.retail_app.Entity.Reward;
 import com.assignment.retail_app.Entity.Transaction;
 import com.assignment.retail_app.Repository.CustomerRepository;
 import com.assignment.retail_app.Repository.RewardRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class RewardService {
@@ -24,6 +23,11 @@ public class RewardService {
   @Autowired private RewardRepository rewardRepository;
   @Autowired private CustomerRepository customerRepository;
 
+  /**
+   * Calculate points for a transaction amount
+   * @param  amount
+   * @return int points
+   */
   public int calculatePoints(BigDecimal amount) {
     int points = 0;
     int amountInt = amount.intValue(); // Discard the decimal part
@@ -38,6 +42,10 @@ public class RewardService {
     return points;
   }
 
+  /**
+   * Create Reward for a transaction
+   * @param transaction
+   */
   public void awardPoints(Transaction transaction) {
     int points = calculatePoints(transaction.getAmount());
     Reward reward = new Reward();
@@ -48,6 +56,11 @@ public class RewardService {
     rewardRepository.save(reward);
   }
 
+  /**
+   * Get Rewards for a customer Id
+   * @param   customerId
+   * @return CustomerRewardResponse
+   */
   public CustomerRewardResponse getRewardsByCustomerId(UUID customerId) {
     Customer customer =
         customerRepository

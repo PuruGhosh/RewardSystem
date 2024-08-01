@@ -20,6 +20,10 @@ public class TransactionService {
 
   @Autowired private RewardService rewardService;
 
+  /**
+   * Create transaction.
+   * @param transactionRequest
+   */
   @Transactional
   public void handleTransaction(TransactionRequest transactionRequest) {
 
