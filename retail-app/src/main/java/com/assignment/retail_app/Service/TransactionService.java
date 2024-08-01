@@ -1,6 +1,6 @@
 package com.assignment.retail_app.Service;
 
-import com.assignment.retail_app.Dto.TransactionRequestDto;
+import com.assignment.retail_app.Dto.TransactionRequest;
 import com.assignment.retail_app.Entity.Customer;
 import com.assignment.retail_app.Entity.Transaction;
 import com.assignment.retail_app.Repository.CustomerRepository;
@@ -21,7 +21,7 @@ public class TransactionService {
   @Autowired private RewardService rewardService;
 
   @Transactional
-  public void handleTransaction(TransactionRequestDto transactionRequest) {
+  public void handleTransaction(TransactionRequest transactionRequest) {
 
     if (transactionRequest.getAmount().compareTo(BigDecimal.ZERO) <= 0) {
       throw new RuntimeException("Invalid Amount. Amount must be greater than 0.");

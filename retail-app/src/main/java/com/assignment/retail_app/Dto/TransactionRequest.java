@@ -7,7 +7,7 @@ import java.util.UUID;
 
 
 @Data
-public class TransactionRequestDto {
+public class TransactionRequest {
     private UUID customerId;
     private BigDecimal amount;
 }
