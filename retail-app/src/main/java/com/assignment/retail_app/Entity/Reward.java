@@ -9,14 +9,12 @@ import java.util.UUID;
 @Data
 @Entity
 public class Reward {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
-    @ManyToOne
-    private Customer customer;
-    @ManyToOne
-    private Transaction transaction;
-    private int points;
-    private LocalDateTime awardedDate;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private UUID id;
 
+  @ManyToOne private Customer customer;
+  @ManyToOne private Transaction transaction;
+  private int points;
+  private LocalDateTime awardedDate;
 }

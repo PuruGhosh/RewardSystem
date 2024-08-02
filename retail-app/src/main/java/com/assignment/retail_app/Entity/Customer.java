@@ -4,17 +4,23 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.Data;
-
 import java.util.UUID;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Pattern;
+import lombok.Data;
 
 @Entity
 @Data
 public class Customer {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
-    private String name;
-    private String email;
-    private String phoneNumber;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private UUID id;
+
+  private String name;
+
+  @Email(message = "Email should be valid")
+  private String email;
+
+  @Pattern(regexp = "^(\\+\\d{1,3}[- ]?)?\\d{10}$", message = "Phone number should be valid")
+  private String phoneNumber;
 }

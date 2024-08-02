@@ -10,13 +10,11 @@ import java.util.UUID;
 @Data
 @Entity
 public class Transaction {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
-    @ManyToOne
-    private Customer customer;
-    private BigDecimal amount;
-    private LocalDateTime transactionDate;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private UUID id;
 
+  @ManyToOne private Customer customer;
+  private BigDecimal amount;
+  private LocalDateTime transactionDate;
 }
-
