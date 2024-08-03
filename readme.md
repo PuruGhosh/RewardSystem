@@ -4,6 +4,7 @@ This is a springboot based service which contains functionality of creating a pu
 
 ### Technology used
 + Java 17
++ Gradle 8.7
 + Springboot v 3.3.2
 + Postgresql 16
 
