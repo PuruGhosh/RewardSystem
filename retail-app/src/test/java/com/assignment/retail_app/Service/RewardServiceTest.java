@@ -101,7 +101,7 @@ public class RewardServiceTest {
         assertThrows(
             RuntimeException.class,
             () -> {
-              rewardService.getRewardsByCustomerId(customerId);
+              rewardService.getRewardsByCustomerId(customerId,anyInt());
             });
     assertEquals("Customer not found", thrown.getMessage());
   }
@@ -128,10 +128,10 @@ public class RewardServiceTest {
     reward.setAwardedDate(LocalDateTime.now());
 
     when(customerRepository.findById(customerId)).thenReturn(Optional.of(customer));
-    when(rewardRepository.findByCustomerId(customerId))
+    when(rewardRepository.findByCustomerIdAndAwardedDateAfter(any(UUID.class), any(LocalDateTime.class)))
         .thenReturn(Collections.singletonList(reward));
 
-    CustomerRewardResponse response = rewardService.getRewardsByCustomerId(customerId);
+    CustomerRewardResponse response = rewardService.getRewardsByCustomerId(customerId, 3);
 
     assertNotNull(response);
     assertEquals(customerId, response.getCustomer().getId());

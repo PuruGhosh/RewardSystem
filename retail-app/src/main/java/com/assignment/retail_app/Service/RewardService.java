@@ -10,6 +10,7 @@ import com.assignment.retail_app.Repository.CustomerRepository;
 import com.assignment.retail_app.Repository.RewardRepository;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
@@ -52,7 +53,7 @@ public class RewardService {
     reward.setCustomer(transaction.getCustomer());
     reward.setTransaction(transaction);
     reward.setPoints(points);
-    reward.setAwardedDate(LocalDateTime.now());
+    reward.setAwardedDate(transaction.getTransactionDate());
     rewardRepository.save(reward);
   }
 
@@ -61,12 +62,13 @@ public class RewardService {
    * @param   customerId
    * @return CustomerRewardResponse
    */
-  public CustomerRewardResponse getRewardsByCustomerId(UUID customerId) {
+  public CustomerRewardResponse getRewardsByCustomerId(UUID customerId, int months) {
     Customer customer =
         customerRepository
             .findById(customerId)
             .orElseThrow(() -> new RuntimeException("Customer not found"));
-    List<Reward> rewards = rewardRepository.findByCustomerId(customerId);
+    LocalDateTime monthsAgo = LocalDateTime.now().minusMonths(months);
+    List<Reward> rewards = rewardRepository.findByCustomerIdAndAwardedDateAfter(customerId, monthsAgo);
     int totalPoints =
         (rewards != null && !rewards.isEmpty())
             ? rewards.stream().mapToInt(Reward::getPoints).sum()
