@@ -97,7 +97,7 @@ Transaction processed and rewards awarded
 ```
 
 #### Show Points
-+ URI: "api/reward/customer/123e4567-e89b-12d3-a456-426614174002?months=1"
++ URI: "api/reward/customer/123e4567-e89b-12d3-a456-426614174002?months=10"
 + ** In uri request parameter 'months' is optional. default value is 3 **
 + Method: GET
 + Function: It gives the rewards for a customer for time specified in months(if not specified, 3)
