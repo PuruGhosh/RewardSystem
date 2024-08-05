@@ -20,6 +20,7 @@ This is a springboot based service which contains functionality of creating a pu
 #### Purchase
 + URI: "api/txn/createTransaction"
 + Method: POST
++ Function: Process one transaction for a customer
 + Req Body:
 ```json
 {
@@ -31,9 +32,75 @@ This is a springboot based service which contains functionality of creating a pu
 ```
 Transaction processed and rewards awarded
 ```
+
+#### Bulk Purchase
++ URI: "api/txn/createBulkTransaction"
++ Method: POST
++ Process multiple transaction for a customer
++ Req Body:
+```json
+{
+  "customerId": "123e4567-e89b-12d3-a456-426614174002",
+  "transactions":[
+    {
+      "amount":130,
+      "transactionDate":"2024-04-12"
+    },
+    {
+      "amount":140,
+      "transactionDate":"2024-07-12"
+    },
+    {
+      "amount":150,
+      "transactionDate":"2024-08-03"
+    }
+  ]
+}
+```
++ Response:
+```json
+[
+  {
+    "id": "5b75b2b1-cc97-426a-9e32-94f00c5e60ff",
+    "customer": {
+      "id": "123e4567-e89b-12d3-a456-426614174002",
+      "name": "Alice Johnson",
+      "email": "alice.johnson@example.com",
+      "phoneNumber": "555-8765"
+    },
+    "amount": 130,
+    "transactionDate": "2024-04-12T10:00:00"
+  },
+  {
+    "id": "de5cb005-d7e4-4caf-a97f-639533061e73",
+    "customer": {
+      "id": "123e4567-e89b-12d3-a456-426614174002",
+      "name": "Alice Johnson",
+      "email": "alice.johnson@example.com",
+      "phoneNumber": "555-8765"
+    },
+    "amount": 140,
+    "transactionDate": "2024-07-12T10:00:00"
+  },
+  {
+    "id": "21bb243f-0e94-441c-9b5f-c026426644d5",
+    "customer": {
+      "id": "123e4567-e89b-12d3-a456-426614174002",
+      "name": "Alice Johnson",
+      "email": "alice.johnson@example.com",
+      "phoneNumber": "555-8765"
+    },
+    "amount": 150,
+    "transactionDate": "2024-08-03T10:00:00"
+  }
+]
+```
+
 #### Show Points
-+ URI: "api/reward/customer/[customerId]"
++ URI: "api/reward/customer/[customerId]?months=2"
++ ** In uri request parameter 'months' is optional. default value is 3 **
 + Method: GET
++ Function: It gives the rewards for a customer for time specified in months(if not specified, 3)
 + Response:
 ```json
 {
